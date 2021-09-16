@@ -1,0 +1,82 @@
+{% extends './base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<!-- <style>
+
+    body {
+        font-size: 20px;
+    }
+
+    .list-group {
+        margin:auto;
+    width: 100px;
+    clear:right;
+
+
+    }
+
+    .nobr {
+        white-space: nowrap
+    }
+
+    .task {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+    }
+
+    .links {}
+
+
+    ul {
+        list-style-type: none;
+    }
+</style> -->
+
+<div class="container">
+    <!-- <h2>ToDo List</h2> -->
+
+    <!-- {%if messages%}
+    {%for message in messages%}
+    <p>{{message}}</p>
+    {%endfor%}
+    {%endif%} -->
+
+    <form method="post" action={% url "home" %}>
+        {% csrf_token %}
+        <fieldset class="form-group mt-2 mx-5 w-25">
+            {{ form|crispy }}
+        </fieldset>
+        <input class="btn btn-outline-primary mx-5 mt-2" type="submit" value="Add to todo">
+    </form>
+    <br>
+    <ul classes="list-group">
+        {% for task in taskes %}
+        <!-- list-group-item w-50 -->
+        <li class="list-group-item w-50 ">
+            <div class="task">
+                <div class="task-inf">
+                    {%if task.completed %}
+                    <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." checked>
+                    {%else%}
+                    <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                    {% endif %}
+                    <span class="title">{{ task.title }} </span>
+                </div>
+                <div class="links">
+                    <a class="btn btn-outline-primary" href={% url "update" task.id %}>Edit</a>
+                    <a class="btn btn-outline-danger" href={% url "delete" task.id %}>Delete</a>
+                </div>
+            </div>
+
+        </li>
+
+        {% endfor %}
+    </ul>
+</div>
+
+
+{% endblock %}

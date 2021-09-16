@@ -1,0 +1,22 @@
+{% extends './base.html' %}
+{% load crispy_forms_tags %}
+
+{%block content%}
+<!-- <h2>Register</h2> -->
+<div class="container mt-2">
+    <form method='post'>
+        {%csrf_token%}
+        {{form|crispy}}
+        <input class="btn btn-outline-success" type='submit' value='Register'>
+    </form>
+    <br>
+    <span>Already have account?</span> <a class="btn btn-outline-primary" href="{% url 'login' %}">Login</a>
+
+</div>
+
+<!-- {%if messages%}
+        {%for message in messages%}
+            message
+        {% endfor %}
+    {% endif %} -->
+{%endblock%}
